@@ -57,12 +57,15 @@ namespace EpicestHax69
 
         public static void AddToLog(string log)
         {
+            const string longAssDivider = "-----------------------------------------------------";
+            const string nl = "\n";
+            
             if (!File.Exists("log.txt"))
             {
                 using var file = File.Create("log.txt");
                 file.Close();
             }
-            File.AppendAllText("log.txt", log + Environment.NewLine);
+            File.AppendAllText("log.txt", $@"{longAssDivider}{nl}{log}{nl}{longAssDivider}{nl}");
         }
         
         /// <summary>
