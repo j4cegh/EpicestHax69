@@ -1,5 +1,5 @@
-﻿using System.Threading;
-using DiscordRPC;
+﻿using DiscordRPC;
+using static EpicestHax69.ThreadingHelper;
 
 namespace EpicestHax69
 {
@@ -9,20 +9,21 @@ namespace EpicestHax69
 
         public void Initialize()
         {
-            new Thread(() =>
+            DoThreaded(() =>
             {
                 _client = new DiscordRpcClient("987709992373198898");
-                
+
                 _client.Initialize();
                 _client.SetPresence(new RichPresence
                 {
                     Details = "The best hack in the universe",
                     Assets = new Assets
                     {
+                        LargeImageKey = "ehxlogo",
                         LargeImageText = "EpicestHax69"
                     }
                 });
-            }).Start();
+            });
         }
     }
 }

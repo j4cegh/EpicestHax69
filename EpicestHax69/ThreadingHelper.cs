@@ -8,24 +8,29 @@ namespace EpicestHax69
     /// </summary>
     public static class ThreadingHelper
     {
+        public static void DoThreaded(Action action)
+        {
+            new Thread(new ThreadStart(action)).Start();
+        }
+        
         public static void WaitFor(Action action, int timeout)
         {
-            new Thread(() =>
+            DoThreaded(() =>
             {
                 Thread.Sleep(timeout);
                 action();
-            }).Start();
+            });
         }
 
         public static void WhileTrue(Action action)
         {
-            new Thread(() =>
+            DoThreaded(() =>
             {
                 while (true)
                 {
                     action();
                 }
-            }).Start();
+            });
         }
     }
 }
