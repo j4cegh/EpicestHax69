@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using ScintillaNET;
+using static EpicestHax69.ThreadingHelper;
 
 namespace EpicestHax69
 {
@@ -21,7 +22,7 @@ namespace EpicestHax69
         
         private void MainForm_Load(object sender, EventArgs e)
         {
-            _roblox.HandleConfig();
+            DoThreaded(_roblox.HandleConfig);
             SetTopMostIndicator(_roblox.TopMost);
             TopMost = _roblox.TopMost;
             
@@ -145,6 +146,9 @@ namespace EpicestHax69
                     attachmentStatusLbl.ForeColor = Color.Red;
                     break;
                 }
+                
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(status), status, null);
             }
         }
 

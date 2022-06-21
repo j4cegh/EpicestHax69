@@ -36,7 +36,7 @@ namespace EpicestHax69
         {
             _form = form;
             Api = new Api();
-            DownloadDeps();
+            DoThreaded(DownloadDeps);
         }
 
         private void SendAttachmentStatus(AttachmentStatus status)
@@ -51,11 +51,9 @@ namespace EpicestHax69
                 var path = Path.GetFullPath(filename);
                 File.Delete(path);
             }
-            
-            using (var client = new WebClient())
-            {
-                client.DownloadFile(url, filename);
-            }
+
+            using var client = new WebClient();
+            client.DownloadFile(url, filename);
         }
 
         public static void AddToLog(string log)
@@ -100,7 +98,7 @@ namespace EpicestHax69
             injector.EnableRaisingEvents = true;
             injector.Start();
             
-            injector.Exited += (sender, args) =>
+            injector.Exited += (_, _) =>
             {
                 _form.Invoke(new Action(() =>
                 {
