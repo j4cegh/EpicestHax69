@@ -59,10 +59,10 @@ namespace EpicestHax69
         {
             if (!File.Exists("log.txt"))
             {
-                File.Create("log.txt");
+                using var file = File.Create("log.txt");
+                file.Close();
             }
-            var path = Path.GetFullPath("log.txt");
-            File.AppendAllText(path, log + Environment.NewLine);
+            File.AppendAllText("log.txt", log + Environment.NewLine);
         }
         
         /// <summary>
