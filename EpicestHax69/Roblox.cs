@@ -48,8 +48,7 @@ namespace EpicestHax69
         {
             if (File.Exists(filename))
             {
-                var path = Path.GetFullPath(filename);
-                File.Delete(path);
+                File.Delete(filename);
             }
 
             using var client = new WebClient();
