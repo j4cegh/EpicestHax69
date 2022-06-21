@@ -61,6 +61,9 @@ del *.exe.config</PostBuildEvent>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tomlyn, Version=0.14.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tomlyn.0.14.4\lib\netstandard2.0\Tomlyn.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttachmentStatus.cs" />

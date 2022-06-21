@@ -21,12 +21,17 @@ namespace EpicestHax69
         
         private void MainForm_Load(object sender, EventArgs e)
         {
+            _roblox.HandleConfig();
+            SetTopMostIndicator(_roblox.TopMost);
+            TopMost = _roblox.TopMost;
+            
             SetAttachment(AttachmentStatus.Unattached);
             FixShit();
             _roblox.AttachedEvent += (_, args) =>
             {
                 SetAttachment(args);
             };
+            
             _rpc.Initialize();
         }
         
@@ -209,6 +214,24 @@ namespace EpicestHax69
             scintilla1.Text = luaFileData;
         }
 
-        
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (_roblox.TopMost)
+            {
+                _roblox.SetTopMost(false);
+                SetTopMostIndicator(false);
+            }
+            else
+            {
+                _roblox.SetTopMost(true);
+                SetTopMostIndicator(true);
+            }
+        }
+
+        public void SetTopMostIndicator(bool topMost)
+        {
+            button6.BackColor = topMost ? Color.Green : Color.Red;
+        }
     }
 }

@@ -49,6 +49,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.label5 = new System.Windows.Forms.Label();
             this.attachmentStatusLbl = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -212,12 +213,24 @@
             this.attachmentStatusLbl.TabIndex = 13;
             this.attachmentStatusLbl.Text = "LOADING...";
             // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.Color.Red;
+            this.button6.Location = new System.Drawing.Point(189, 27);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(72, 32);
+            this.button6.TabIndex = 14;
+            this.button6.Text = "TOPMOST";
+            this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(800, 465);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.attachmentStatusLbl);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.button5);
@@ -246,6 +259,8 @@
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button button6;
 
         private System.Windows.Forms.Label attachmentStatusLbl;
 

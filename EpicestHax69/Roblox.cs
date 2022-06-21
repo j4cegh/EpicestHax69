@@ -6,6 +6,8 @@ using System.Threading;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 using SynapseAPI;
+using Tomlyn;
+using Tomlyn.Model;
 using static EpicestHax69.ThreadingHelper;
 
 namespace EpicestHax69
@@ -15,7 +17,7 @@ namespace EpicestHax69
         private readonly Form _form;
         public Api Api { get; }
         public event EventHandler<AttachmentStatus> AttachedEvent;
-        
+        public bool TopMost { get; set; }
         private bool _attached;
         
         public bool Attached
@@ -103,7 +105,8 @@ namespace EpicestHax69
                 _form.Invoke(new Action(() =>
                 {
                     _form.TopMost = true;
-                    WaitFor(() => _form.TopMost = false, 1);
+                    // huge hack to make it appear on top of the injector
+                    WaitFor(() => _form.TopMost = TopMost, 1);
                 }));
             };
             
@@ -135,6 +138,47 @@ namespace EpicestHax69
                 }
                 Thread.Sleep(2000);
             });
+        }
+
+        public void HandleConfig()
+        {
+            if (File.Exists("config.toml"))
+            {
+                var data = File.ReadAllText("config.toml");
+                var model = Toml.ToModel(data);
+                TomlTable ehx = (TomlTable)model["ehx"];
+                TopMost = (bool)ehx["TopMost"];
+            }
+            else
+            {
+                using var file = File.Create("config.toml");
+                file.Close();
+
+                TomlTable tomlTable = new TomlTable
+                {
+                    ["ehx"] = new TomlTable
+                    {
+                        ["TopMost"] = false
+                    }
+                };
+                File.WriteAllText("config.toml", Toml.FromModel(tomlTable));
+            }
+        }
+        
+        public static void SetConfigValue(string name, object value)
+        {
+            var data = File.ReadAllText("config.toml");
+            var model = Toml.ToModel(data);
+            TomlTable ehx = (TomlTable)model["ehx"];
+            ehx[name] = value;
+            File.WriteAllText("config.toml", Toml.FromModel(model));
+        }
+
+        public void SetTopMost(bool newValue)
+        {
+            _form.TopMost = newValue;
+            TopMost = newValue;
+            SetConfigValue("TopMost", newValue);
         }
     }
 }
